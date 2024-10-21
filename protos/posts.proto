@@ -1,0 +1,66 @@
+syntax = "proto3";
+package posts;
+
+service Posts {
+  rpc createPost (createPostRequest) returns (createPostResponse) {}
+  rpc updatePost (updatePostRequest) returns (updatePostResponse) {}
+  rpc deletePost (deletePostRequest) returns (deletePostResponse) {}
+  rpc getPosts (getPostsRequest) returns (getPostsResponse) {}
+}
+
+message createPostRequest{
+  string title = 1;
+  string description = 2;
+  repeated string images = 3;
+}
+
+message createPostResponse{
+  Post post = 1;
+}
+
+message updatePostRequest{
+  string _id = 1;
+  string title = 2;
+  string description = 3;
+  repeated string images = 4;
+  bool archive = 5;
+}
+
+message updatePostResponse{
+  Post post = 1;
+}
+
+message deletePostRequest{
+  string _id = 1;
+}
+
+message deletePostResponse{
+  string message = 1;
+}
+
+message getPostsRequest{
+  int64 limit = 1;
+  int64 page = 2;
+  string s = 3;
+}
+
+message getPostsResponse{
+  repeated Post posts = 1;
+  _meta _meta = 2;
+}
+
+
+message _meta {
+  int64 totalPages = 1;
+  int64 count = 2;
+  int64 page = 3;
+}
+
+message Post {
+  string _id = 1;
+  string title = 2;
+  string createdAt = 3;
+  string description = 4;
+  repeated string images = 5;
+  optional bool archive = 6;
+}
